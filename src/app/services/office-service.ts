@@ -28,4 +28,11 @@ export class OfficeService {
     });
   }
 
+  deleteOffice(id: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.apiUrl}/${id}`,
+      { headers: this.headers }
+    );
+  }
+
 }

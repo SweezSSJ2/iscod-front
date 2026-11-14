@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { OfficeService } from '../../services/office-service';
 
@@ -13,6 +13,8 @@ import { OfficeService } from '../../services/office-service';
 export class OfficeForm {
 
   private officeService = inject(OfficeService);
+
+  officeCreated = output<void>();
 
   title = signal('Ajouter un espace de coworking');
 
@@ -45,6 +47,8 @@ export class OfficeForm {
         };
 
         this.loading.set(false);
+
+        this.officeCreated.emit();
       },
       error: (error) => {
         console.error('Erreur lors de la création :', error);

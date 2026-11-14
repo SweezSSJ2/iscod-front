@@ -1,17 +1,28 @@
-<div class="container my-4">
+<div class="container">
 
-  <h2 class="mb-4">Nos espaces de coworking</h2>
+  <app-office-form (officeCreated)="loadOffices()" />
+
+  <h2 class="my-4">Nos espaces de coworking</h2>
 
   <div class="row g-4">
 
     @for (office of offices(); track office.id) {
 
-      <div class="col-12 col-md-6 col-lg-4">
+      <div class="col-6">
 
         <div
-          class="card h-100 shadow-sm office-card"
+          class="card h-100 shadow-sm position-relative"
           [routerLink]="['/offices', office.id]"
+          style="cursor: pointer;"
         >
+
+          <button
+            type="button"
+            class="btn-close position-absolute top-0 end-0 m-3"
+            aria-label="Supprimer cet office"
+            title="Supprimer"
+            (click)="$event.stopPropagation(); deleteOffice(office.id, office.name)"
+          ></button>
 
           <div class="card-body">
 
