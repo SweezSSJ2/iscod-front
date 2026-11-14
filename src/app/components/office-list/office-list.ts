@@ -1,9 +1,35 @@
-import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { Office } from '../../models/office.model';
+import { OfficeService } from '../../services/office-service';
 
 @Component({
   selector: 'app-office-list',
-  imports: [],
+  standalone: true,
+  imports: [
+    RouterLink
+  ],
   templateUrl: './office-list.html',
-  styleUrl: './office-list.scss',
+  styleUrl: './office-list.scss'
 })
-export class OfficeList {}
+export class OfficeList implements OnInit {
+
+  private officeService = inject(OfficeService);
+
+  offices = signal<Office[]>([]);
+
+  ngOnInit(): void {
+    this.officeService.getAllOffices().subscribe({
+      next: (data: Office[]) => {
+        console.log('Données reçues :', data);
+
+        this.offices.set(data);
+
+        console.log('Nombre d offices :', this.offices().length);
+      },
+      error: (error) => {
+        console.error('Erreur :', error);
+      }
+    });
+  }
+}

@@ -1,1 +1,68 @@
-<p>office-form works!</p>
+<div class="card shadow-sm p-4 mt-3">
+
+  <h5 class="mb-4">{{ title() }}</h5>
+
+  <div class="mb-3">
+    <label for="officeName" class="form-label">Nom de l'office</label>
+
+    <input
+      id="officeName"
+      type="text"
+      class="form-control"
+      placeholder="Ex : Paris République"
+      [(ngModel)]="office.name"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="officeAddress" class="form-label">Adresse</label>
+
+    <input
+      id="officeAddress"
+      type="text"
+      class="form-control"
+      placeholder="Ex : Place de la République, 75000 Paris"
+      [(ngModel)]="office.address"
+    />
+  </div>
+
+  @if (successMessage()) {
+    <div class="alert alert-success">
+      {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="alert alert-danger">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <div class="d-flex gap-2">
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="save()"
+      [disabled]="loading()"
+    >
+      @if (loading()) {
+        <span class="spinner-border spinner-border-sm me-2"></span>
+        Enregistrement...
+      } @else {
+        Ajouter l'office
+      }
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="cancel()"
+      [disabled]="loading()"
+    >
+      Annuler
+    </button>
+
+  </div>
+
+</div>

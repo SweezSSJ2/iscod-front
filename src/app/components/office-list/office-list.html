@@ -1,1 +1,40 @@
-<p>office-list works!</p>
+<div class="container my-4">
+
+  <h2 class="mb-4">Nos espaces de coworking</h2>
+
+  <div class="row g-4">
+
+    @for (office of offices(); track office.id) {
+
+      <div class="col-12 col-md-6 col-lg-4">
+
+        <div
+          class="card h-100 shadow-sm office-card"
+          [routerLink]="['/offices', office.id]"
+        >
+
+          <div class="card-body">
+
+            <h5 class="card-title">
+              {{ office.name }}
+            </h5>
+
+            <p class="card-text text-muted">
+              {{ office.address }}
+            </p>
+
+            <span class="btn btn-outline-primary">
+              Voir les salles
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>
